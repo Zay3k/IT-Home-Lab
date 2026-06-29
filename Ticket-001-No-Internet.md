@@ -4,6 +4,8 @@
 Michael (Front Desk)
 ### Priority: High
 
+###### Priority: High
+
 ## Issue
 User reports that the computer shows Wi-Fi connected, but no internet access. Outlook and web browsing are not working.
 
