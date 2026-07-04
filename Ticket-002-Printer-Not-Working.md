@@ -1,124 +1,139 @@
-# Ticket #002 - Printer not working 
-
-## Category 
-Printer Support
-
-## Environment 
-Windows 11, Network printer, Single user affected
+# Ticket #002 - Network Printer Not Printing
 
 ## User
-Sara (Human Resources)
+Sarah (Human Resources)
 
-###### Priority: Medium
+## Category
+Printer Support
 
-## Status 
+## Environment
+- Operating System: Windows 11
+- Device Type: Desktop
+- Network: Corporate Wi-Fi
+- Printer Type: Network Printer
+- Affected Users: Single user
+
+## Priority
+Medium
+
+## Status
 Resolved
 
+---
+
 ## Issue
-User reports documents remain stuck in the print queue. Other employees are able to print to the same printer without issue.
+
+User reports that documents are stuck in the print queue and are not printing.
+
+Other employees are able to print successfully to the same network printer.
 
 ---
 
 ## Initial Assessment
-- Confirmed issue is isolated to one workstation
-- Printer is powered on
-- No paper jams or hardware errors observed
-- Other users can successfully print
-- Suspected printer configuration issue
+
+- Issue isolated to one workstation
+- Printer is powered on and reachable on the network
+- No paper jams or hardware errors reported
+- Other users can print without issue
+- Suspected local Print Spooler or driver issue
 
 ---
 
 ## Troubleshooting Steps
 
-### 1. Verified printer status 
-Opened: 
+### 1. Verified Printer Status
 
-Settings > Bluetooth & devices > Printers and scanners
-
-Observed:
-- Printer listed correctly
-- Printer status displayed offline 
-
-**Conclusion:** Issue appears to be local workstation
-
----
-
-### 2. Restarted Printer Spooler Service 
-Opened: 
-services.msc
-
-Located: 
-Print spooler
-
-##### Actions performed:
-Stopped service
-Started service
-
-##### Result: Printer came online but print jobs still stuck.
-
----
-
-### 3. Cleared print queue
-Stopped print spooler service
-
-Navigated to C:\Windows\System32\spool\PRINTERS
-
-Deleted all pending print jobs
-
-Restarted Print spool service
-
-##### Result: Queue successfully cleared
-
----
-
-### 4. Removed and reinstalled printer
-Opened:
-Settings > Bluetooth & devices > Printers & scanners
-
-Removed affected printer
-Selected:
-Add printer
-- Windows rediscoverd the printer and installed it successfully
-
-### 5. Printed Test Page
-Printed a windows test page.
+- Checked Printers & Scanners in Windows Settings
+- Confirmed printer was listed and installed correctly
+- Status showed "Ready"
 
 **Result:**
-Test page printed successfully 
-User successsfully printed a word document
+- Printer was reachable and online
 
-**Resolution:** 
-Restarted printer spool service
-Cleared corrupted print queue
-Removed and reinstalled network printer
-Verified successful test print
+---
+
+### 2. Restarted Print Spooler Service
+
+- Opened services.msc
+- Located Print Spooler service
+- Restarted service
+
+**Result:**
+- Print queue temporarily resumed but jobs remained stuck
+
+---
+
+### 3. Cleared Print Queue
+
+- Stopped Print Spooler service
+- Navigated to:
+  C:\Windows\System32\spool\PRINTERS
+- Deleted all stuck print jobs
+- Restarted Print Spooler service
+
+**Result:**
+- Print queue successfully cleared
+
+---
+
+### 4. Reinstalled Printer
+
+- Removed printer from Settings → Printers & Scanners
+- Re-added network printer
+- Windows automatically installed correct driver
+
+**Result:**
+- Printer reconnected successfully
+
+---
+
+### 5. Test Print
+
+- Printed Windows Test Page
+
+**Result:**
+- Test page printed successfully
+- User confirmed Word and PDF printing working
+
+---
+
+## Resolution
+
+- Restarted Print Spooler service
+- Cleared corrupted print queue
+- Removed and reinstalled printer
+- Verified functionality with test print
 
 ---
 
 ## Outcome
-Printer functioning normally
-User able to print documents
-No additional issues reported
+
+- Printing restored for user
+- No further issues reported
+- System operating normally
 
 ---
 
 ## Root Cause
-A corrupted print job caused the Print Spooler to get stuck, preventing jobs from being processed.
+
+A corrupted print job in the local Print Spooler caused the print queue to become stuck, preventing new print jobs from being processed.
 
 ---
 
 ## Notes / Lessons Learned
-Always verify whether the issue affects one or multiple users
-Restarting the print spooler is one of the first troubleshooting steps for print related issues 
-Clearing the print queue resolves many spooler related problems
-If issues persist after clearing the queue, removing and reinstalling the printer can resolve corrupter printer configurations
-Testing with a windows test page confirms both printer communication and driver functionality
+
+- Print issues affecting only one user typically indicate a local issue (driver/spooler)
+- Restarting Print Spooler is a key first step in troubleshooting print problems
+- Clearing the spool folder resolves stuck print jobs
+- Reinstalling the printer can resolve driver-related corruption
+- Always confirm scope before escalating (single user vs multiple users)
+
+---
 
 ## Commands / Tools Used
 
-* services.msc
-* Print Management
-* Settings → Printers & Scanners
-* Windows Print Spooler
-* Windows Test Page
+- services.msc
+- Settings → Printers & Scanners
+- File Explorer (spool folder path)
+- Windows Test Page
 * File Explorer
